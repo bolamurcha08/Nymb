@@ -71,6 +71,11 @@
    max-width: 800px;
  }
 
+ .image.png{
+    width: 20px;
+    display: flex;
+ }
+
  footer {
    background-color: #3E2C28;
    color: white;
