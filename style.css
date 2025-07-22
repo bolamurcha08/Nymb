@@ -74,7 +74,8 @@
 .sobre-nos {
   display: flex;
   align-items: center;
-  gap: 40px; 
+  gap: 200px; 
+  flex-direction: row-reverse;
 }
 
 .sobre-nos img {
