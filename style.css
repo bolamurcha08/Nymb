@@ -162,3 +162,13 @@
      align-items: center;
    }
  }
+ @media (max-width: 768px) {
+  .sobre-nos {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .sobre-nos img {
+    width: 80%;
+  }
+}
