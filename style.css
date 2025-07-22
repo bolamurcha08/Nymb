@@ -71,19 +71,22 @@
    max-width: 800px;
  }
 
- .sobre-nos {
+.sobre-nos {
   display: flex;
   align-items: center;
   gap: 40px; 
 }
 
 .sobre-nos img {
-  width: 250px; 
+  width: 280px; 
   height: auto;
-  border-radius: 16px;
+  border-radius: 16px; 
 }
 
 .sobre-nos p {
+  font-size: 20px;
+  color: #5C3A1E;
+  max-width: 800px;
   flex: 1; 
 }
 
