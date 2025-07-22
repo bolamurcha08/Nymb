@@ -155,83 +155,53 @@ footer a {
 }
 
 
-/* Página de Login */
+/* Página de Login/Cadastro */
 .login-body {
-    background-color: #FAEEE0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    font-family: 'Poppins', sans-serif;
+  background-color: #FAEEE0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-family: 'Poppins', sans-serif;
 }
 
+/* Caixa do formulário */
 .login-container {
-    background-color: #FFF;
-    padding: 40px 30px;
-    border-radius: 20px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 400px;
-    text-align: center;
+  background-color: #FFF;
+  padding: 40px 30px;
+  border-radius: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
 }
 
+/* Título */
 .login-container h2 {
-    font-family: 'Dancing Script', cursive;
-    font-size: 32px;
-    color: #3E2C28;
-    margin-bottom: 20px;
+  font-family: 'Dancing Script', cursive;
+  font-size: 32px;
+  color: #3E2C28;
+  margin-bottom: 20px;
 }
 
+/* Labels dos campos */
 .login-container label {
-    display: block;
-    text-align: left;
-    margin-top: 15px;
-    font-weight: bold;
-    color: #5C3A1E;
+  display: block;
+  text-align: left;
+  margin-top: 15px;
+  font-weight: bold;
+  color: #5C3A1E;
 }
-
-.login-container input {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    border-radius: 10px;
-    border: 1px solid #D3C0A6;
-    background-color: #FDF8F2;
-}
-
-.login-container button {
-    margin-top: 25px;
-    width: 100%;
-    padding: 12px;
-    border: none;
-    border-radius: 10px;
-    background-color: #E1A380;
-    color: #fff;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-
-
-.login-container .nao-tem-conta {
-    margin-top: 20px;
-    font-size: 14px;
-    color: #5C3A1E;
-}
-
-
-
-
 
 /* Campos de input */
 .login-container input {
   display: block;
   width: 100%;
-  margin: 10px 0;
   padding: 12px;
-  border: 1px solid #ccc;
+  margin-top: 5px;
   border-radius: 10px;
+  border: 1px solid #D3C0A6;
+  background-color: #FDF8F2;
   font-size: 16px;
 }
 
@@ -239,24 +209,26 @@ footer a {
 .login-container button {
   width: 100%;
   padding: 12px;
-  margin-top: 15px;
+  margin-top: 20px;
   background-color: #E1A380;
   color: white;
+  font-weight: bold;
   border: none;
   border-radius: 10px;
   font-size: 16px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s ease;
 }
 
 .login-container button:hover {
   background-color: #5C3A1E;
 }
 
-/* Mensagem de erro ou sucesso */
+/* Mensagem de erro/sucesso */
 #mensagem {
   margin-top: 10px;
   font-size: 14px;
+  color: #A0522D;
 }
 
 /* Link para voltar */
@@ -272,9 +244,12 @@ footer a {
   text-decoration: underline;
 }
 
-
-
-
+/* Link para "não tem conta" */
+.login-container .nao-tem-conta {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #5C3A1E;
+}
 
 
 
