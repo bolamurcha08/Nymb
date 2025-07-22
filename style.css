@@ -223,7 +223,18 @@ footer a {
 }
 
 
+.voltar {
+      display: block;
+      margin-top: 25px;
+      text-decoration: none;
+      color: #5C3A1E;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
 
+    .voltar:hover {
+      color: #A0522D;
+    }
 
 
 
