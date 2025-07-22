@@ -212,9 +212,7 @@ footer a {
     transition: background-color 0.3s ease;
 }
 
-.login-container button:hover {
-    background-color: #D68F6A;
-}
+
 
 .login-container .nao-tem-conta {
     margin-top: 20px;
@@ -242,7 +240,7 @@ footer a {
   width: 100%;
   padding: 12px;
   margin-top: 15px;
-  background-color: #D68F6A;
+  background-color: #E1A380;
   color: white;
   border: none;
   border-radius: 10px;
