@@ -71,11 +71,23 @@
    max-width: 800px;
  }
 
- .imagemlogo2{
-    width: 20px;
-    display: flex;
- }
+ .sobre-nos {
+  display: flex;
+  align-items: center;
+  gap: 40px; 
+}
 
+.sobre-nos img {
+  width: 250px; 
+  height: auto;
+  border-radius: 16px;
+}
+
+.sobre-nos p {
+  flex: 1; 
+}
+
+ 
  footer {
    background-color: #3E2C28;
    color: white;
