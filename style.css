@@ -236,6 +236,81 @@ footer a {
       color: #A0522D;
     }
 
+/* Estilo base para fundo da página */
+.login-body {
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to right, #FFEBE6, #FFE0F0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+/* Caixa central do formulário */
+.login-container {
+  background-color: #fff;
+  padding: 40px 30px;
+  border-radius: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}
+
+.login-container h2 {
+  margin-bottom: 25px;
+  font-size: 28px;
+  color: #C6538C;
+}
+
+/* Campos de input */
+.login-container input {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 16px;
+}
+
+/* Botão */
+.login-container button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 15px;
+  background-color: #C6538C;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.login-container button:hover {
+  background-color: #a94271;
+}
+
+/* Mensagem de erro ou sucesso */
+#mensagem {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+/* Link para voltar */
+.voltar {
+  display: inline-block;
+  margin-top: 20px;
+  color: #C6538C;
+  text-decoration: none;
+  font-size: 15px;
+}
+
+.voltar:hover {
+  text-decoration: underline;
+}
 
 
 
