@@ -240,7 +240,7 @@ footer a {
   width: 100%;
   padding: 12px;
   margin-top: 15px;
-  background-color: #5C3A1E;
+  background-color: #E1A380;
   color: white;
   border: none;
   border-radius: 10px;
@@ -250,7 +250,7 @@ footer a {
 }
 
 .login-container button:hover {
-  background-color: #a94271;
+  background-color: #5C3A1E;
 }
 
 /* Mensagem de erro ou sucesso */
