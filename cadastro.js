@@ -41,3 +41,29 @@ document.getElementById("cadastroForm").addEventListener("submit", function(even
     window.location.href = "login.html";
   }, 2000);
 });
+
+<script>
+document.getElementById("form-cadastro").addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  const email = document.getElementById("email").value;
+  const senha = document.getElementById("senha").value;
+
+  // Verifica se já existe
+  if (localStorage.getItem(email)) {
+    document.getElementById("mensagem").innerText = "Esse e-mail já está cadastrado.";
+    return;
+  }
+
+  // Salva
+  const usuario = {
+    email: email,
+    senha: senha,
+    receitasSalvas: []
+  };
+
+  localStorage.setItem(email, JSON.stringify(usuario));
+  document.getElementById("mensagem").innerText = "Conta criada com sucesso!";
+});
+</script>
+
