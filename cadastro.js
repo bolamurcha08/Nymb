@@ -19,22 +19,21 @@ document.getElementById("cadastroForm").addEventListener("submit", function(even
     return;
   }
 
-  // Verifica se o e-mail já está cadastrado
-  if (localStorage.getItem(email)) {
+  // Pega o array de usuários ou cria vazio
+  let usuarios = JSON.parse(localStorage.getItem("usuarios") || "[]");
+
+  // Verifica se email já existe
+  const usuarioExistente = usuarios.find(user => user.email === email);
+  if (usuarioExistente) {
     mensagem.textContent = "Este e-mail já está cadastrado!";
     mensagem.style.color = "red";
     return;
   }
 
-  // Cria e salva o novo usuário
-  const novoUsuario = {
-    nome,
-    email,
-    senha,
-    receitasSalvas: []  // já preparado para salvar receitas depois
-  };
+  // Adiciona o novo usuário no array
+  usuarios.push({ nome, email, senha, receitasSalvas: [] });
+  localStorage.setItem("usuarios", JSON.stringify(usuarios));
 
-  localStorage.setItem(email, JSON.stringify(novoUsuario));
   mensagem.textContent = "Cadastro realizado com sucesso!";
   mensagem.style.color = "green";
 
@@ -42,4 +41,3 @@ document.getElementById("cadastroForm").addEventListener("submit", function(even
     window.location.href = "login.html";
   }, 2000);
 });
-

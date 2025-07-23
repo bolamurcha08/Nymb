@@ -5,10 +5,10 @@ document.getElementById("loginForm").addEventListener("submit", function (event)
   const senha = document.getElementById("senha").value;
   const mensagem = document.getElementById("mensagem");
 
-  // Pega os usuários cadastrados
+  // Pega os usuários cadastrados (array)
   const usuarios = JSON.parse(localStorage.getItem("usuarios") || "[]");
 
-  // Verifica se o usuário existe
+  // Procura usuário com email e senha corretos
   const usuario = usuarios.find(user => user.email === email && user.senha === senha);
 
   if (!usuario) {
@@ -23,7 +23,6 @@ document.getElementById("loginForm").addEventListener("submit", function (event)
   mensagem.textContent = "Login realizado com sucesso!";
   mensagem.style.color = "green";
 
-  // Redireciona para página principal
   setTimeout(() => {
     window.location.href = "index.html";
   }, 1500);
