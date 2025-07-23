@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Beijinho - Docinhos NYMB</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <a href="index.html" class="r1-voltar">← Voltar para o menu</a>
+
+  <div class="r1-container">
+    <img src="3beijinho.png" alt="Beijinho" />
+    <h1>Beijinho</h1>
+
+    <div class="r1-section">
+      <h2>Ingredientes</h2>
+      <ul>
+        <li>1 lata de leite condensado</li>
+        <li>1 colher (sopa) de manteiga</li>
+        <li>100g de coco ralado</li>
+        <li>Açúcar cristal para decorar</li>
+        <li>Cravos-da-índia (opcional)</li>
+      </ul>
+    </div>
+
+    <div class="r1-section">
+      <h2>Modo de preparo</h2>
+      <ol>
+        <li>Em uma panela, misture o leite condensado, a manteiga e o coco ralado.</li>
+        <li>Leve ao fogo baixo, mexendo até desgrudar do fundo.</li>
+        <li>Deixe esfriar, enrole os beijinhos e passe no açúcar cristal.</li>
+        <li>Decore com cravos, se desejar.</li>
+      </ol>
+    </div>
+
+    <button class="r1-btn-salvar" onclick="salvarReceita()">Salvar Receita</button>
+    <p class="r1-msg" id="r1-msg"></p>
+  </div>
+
+  <script>
+    function salvarReceita() {
+      const usuario = JSON.parse(localStorage.getItem("usuarioLogado"));
+      if (!usuario) {
+        document.getElementById("r1-msg").textContent = "Você precisa estar logado!";
+        return;
+      }
+
+      const receitas = JSON.parse(localStorage.getItem("receitasSalvas_" + usuario.email) || "[]");
+      const receita = {
+        nome: "Beijinho",
+        url: "beijinho.html"
+      };
+
+      const jaSalva = receitas.some(r => r.url === receita.url);
+      if (!jaSalva) {
+        receitas.push(receita);
+        localStorage.setItem("receitasSalvas_" + usuario.email, JSON.stringify(receitas));
+        document.getElementById("r1-msg").textContent = "Receita salva!";
+      } else {
+        document.getElementById("r1-msg").textContent = "Essa receita já está salva.";
+      }
+    }
+  </script>
+</body>
+</html>
