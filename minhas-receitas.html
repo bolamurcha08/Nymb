@@ -1,179 +1,125 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Minhas Receitas - Docinhos NYMB</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Dancing+Script&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css" />
   <style>
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background-color: #FAEEE0;
-      color: #5C3A1E;
-    }
-    header {
-      background-color: #E1A380;
-      padding: 20px;
-      text-align: center;
-      color: #fff;
-      font-size: 24px;
-      font-family: 'Dancing Script', cursive;
-    }
-    .container {
+    .r1-container {
+      font-family: 'Arial', sans-serif;
+      padding: 30px;
+      background-color: #fff8f0;
+      color: #3e2c28;
       max-width: 800px;
-      margin: 30px auto;
-      padding: 20px;
-      background-color: #FFF;
+      margin: auto;
       border-radius: 15px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     }
-    .bem-vindo {
-      font-size: 18px;
+
+    .r1-container h1 {
+      font-size: 32px;
+      color: #8b4513;
       margin-bottom: 20px;
     }
-    .receitas-lista {
+
+    .r1-lista {
       list-style: none;
       padding: 0;
     }
-    .receita-item {
-      background-color: #FDF8F2;
-      border: 1px solid #D3C0A6;
-      padding: 15px;
-      margin-bottom: 10px;
-      border-radius: 10px;
+
+    .r1-lista li {
+      margin-bottom: 15px;
+      background-color: #fbe2cd;
+      padding: 10px;
+      border-radius: 8px;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
-    .receita-item button {
-      background-color: #E1A380;
-      color: #fff;
-      border: none;
-      padding: 6px 12px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 14px;
-      transition: background-color 0.3s ease;
-    }
-    .receita-item button:hover {
-      background-color: #5C3A1E;
-    }
-    button.adicionar {
-      background-color: #E1A380;
-      color: #fff;
-      border: none;
-      padding: 12px 20px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 16px;
-      margin-top: 20px;
-      width: 100%;
-      font-weight: bold;
-      transition: background-color 0.3s ease;
-    }
-    button.adicionar:hover {
-      background-color: #5C3A1E;
-    }
-    .sair {
-      display: block;
-      margin-top: 30px;
-      text-align: center;
-      font-size: 14px;
-    }
-    .sair a {
-      color: #A0522D;
+
+    .r1-lista a {
       text-decoration: none;
+      color: #5c3a1e;
+      font-weight: bold;
     }
-    .sair a:hover {
-      text-decoration: underline;
+
+    .r1-btn-remover {
+      background-color: #8b0000;
+      color: white;
+      border: none;
+      padding: 6px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .r1-btn-remover:hover {
+      background-color: #a00000;
+    }
+
+    .r1-voltar {
+      display: inline-block;
+      margin-bottom: 20px;
+      background-color: #f2d1b3;
+      color: #5c3a1e;
+      padding: 10px 15px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .r1-voltar:hover {
+      background-color: #e3b58f;
+    }
+
+    .r1-msg {
+      font-weight: bold;
+      margin-top: 10px;
     }
   </style>
 </head>
 <body>
-  <header>Minhas Receitas</header>
-  <div class="container">
-    <div class="bem-vindo" id="bem-vindo">Olá, usuário!</div>
+  <a href="index.html" class="r1-voltar">← Voltar para o menu</a>
 
-    <ul class="receitas-lista" id="lista-receitas">
-      <!-- Receitas aparecerão aqui -->
-    </ul>
-
-    <button class="adicionar" onclick="adicionarReceita()">+ Adicionar Nova Receita</button>
-
-    <div class="sair">
-      <a href="index.html" onclick="sair()">← Voltar para a página inicial</a>
-    </div>
+  <div class="r1-container">
+    <h1>Minhas Receitas Salvas</h1>
+    <ul id="lista-receitas" class="r1-lista"></ul>
+    <p id="msg" class="r1-msg"></p>
   </div>
 
   <script>
-    // Pega o usuário logado
-    const email = JSON.parse(localStorage.getItem("usuarioLogado"))?.email;
-
-    if (!email) {
-      alert("Você precisa estar logado para acessar essa página.");
-      window.location.href = "login.html";
-    }
-
-    let usuarios = JSON.parse(localStorage.getItem("usuarios") || "[]");
-    let usuarioAtual = usuarios.find(u => u.email === email);
-
-    const bemVindoEl = document.getElementById("bem-vindo");
+    const usuario = JSON.parse(localStorage.getItem("usuarioLogado"));
     const lista = document.getElementById("lista-receitas");
+    const msg = document.getElementById("msg");
 
-    if (usuarioAtual) {
-      bemVindoEl.textContent = `Bem-vindo, ${usuarioAtual.nome}!`;
-    }
+    if (!usuario) {
+      msg.textContent = "Você precisa estar logado para ver suas receitas.";
+    } else {
+      const receitas = JSON.parse(localStorage.getItem("receitasSalvas_" + usuario.email) || "[]");
 
-    function salvarUsuarios() {
-      localStorage.setItem("usuarios", JSON.stringify(usuarios));
-    }
+      if (receitas.length === 0) {
+        msg.textContent = "Nenhuma receita salva ainda.";
+      } else {
+        receitas.forEach((receita, index) => {
+          const li = document.createElement("li");
+          const link = document.createElement("a");
+          link.href = receita.url;
+          link.textContent = receita.nome;
 
-    function carregarReceitas() {
-      lista.innerHTML = "";
+          const botao = document.createElement("button");
+          botao.textContent = "Remover";
+          botao.classList.add("r1-btn-remover");
+          botao.onclick = () => {
+            receitas.splice(index, 1);
+            localStorage.setItem("receitasSalvas_" + usuario.email, JSON.stringify(receitas));
+            location.reload();
+          };
 
-      if (!usuarioAtual || !usuarioAtual.receitasSalvas || usuarioAtual.receitasSalvas.length === 0) {
-        lista.innerHTML = "<p>Você ainda não salvou nenhuma receita.</p>";
-        return;
-      }
-
-      usuarioAtual.receitasSalvas.forEach((receita, index) => {
-        const item = document.createElement("li");
-        item.className = "receita-item";
-
-        const span = document.createElement("span");
-        span.textContent = receita;
-
-        const btnExcluir = document.createElement("button");
-        btnExcluir.textContent = "Excluir";
-        btnExcluir.onclick = () => {
-          if (confirm(`Quer mesmo excluir a receita "${receita}"?`)) {
-            usuarioAtual.receitasSalvas.splice(index, 1);
-            salvarUsuarios();
-            carregarReceitas();
-          }
-        };
-
-        item.appendChild(span);
-        item.appendChild(btnExcluir);
-        lista.appendChild(item);
-      });
-    }
-
-    function adicionarReceita() {
-      const nova = prompt("Digite o nome da nova receita:");
-      if (nova && nova.trim() !== "") {
-        usuarioAtual.receitasSalvas.push(nova.trim());
-        salvarUsuarios();
-        carregarReceitas();
+          li.appendChild(link);
+          li.appendChild(botao);
+          lista.appendChild(li);
+        });
       }
     }
-
-    function sair() {
-      localStorage.removeItem("usuarioLogado");
-    }
-
-    carregarReceitas();
   </script>
 </body>
 </html>
