@@ -244,7 +244,7 @@ footer a {
   text-decoration: underline;
 }
 
-/* Link para "não tem conta" */
+
 .login-container .nao-tem-conta {
   margin-top: 20px;
   font-size: 14px;
@@ -274,7 +274,64 @@ footer a {
 }
 
 
+/* style das paginas de doces" */
 
+
+    .r1-container {
+      font-family: 'Arial', sans-serif;
+      padding: 30px;
+      background-color: #fff8f0;
+      color: #3e2c28;
+      max-width: 800px;
+      margin: auto;
+      border-radius: 15px;
+    }
+
+    .r1-container img {
+      width: 100%;
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+
+    .r1-container h1 {
+      font-size: 32px;
+      color: #8b4513;
+      margin-bottom: 10px;
+    }
+
+    .r1-section {
+      margin-bottom: 25px;
+    }
+
+    .r1-section h2 {
+      font-size: 24px;
+      color: #5c3a1e;
+      margin-bottom: 10px;
+    }
+
+    .r1-section ul, .r1-section ol {
+      padding-left: 20px;
+    }
+
+    .r1-btn-salvar {
+      padding: 10px 20px;
+      background-color: #8b0000;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .r1-btn-salvar:hover {
+      background-color: #a00000;
+    }
+
+    .r1-msg {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+  
 
 
 
