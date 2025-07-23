@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Minhas Receitas</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Dancing+Script&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #FAEEE0;
+      color: #5C3A1E;
+    }
+
+    header {
+      background-color: #E1A380;
+      padding: 20px;
+      text-align: center;
+      color: #fff;
+      font-size: 24px;
+      font-family: 'Dancing Script', cursive;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 30px auto;
+      padding: 20px;
+      background-color: #FFF;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .bem-vindo {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+
+    .receitas-lista {
+      list-style: none;
+      padding: 0;
+    }
+
+    .receita-item {
+      background-color: #FDF8F2;
+      border: 1px solid #D3C0A6;
+      padding: 15px;
+      margin-bottom: 10px;
+      border-radius: 10px;
+    }
+
+    button {
+      background-color: #E1A380;
+      color: #fff;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 20px;
+    }
+
+    button:hover {
+      background-color: #5C3A1E;
+    }
+
+    .sair {
+      display: block;
+      margin-top: 30px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .sair a {
+      color: #A0522D;
+      text-decoration: none;
+    }
+
+    .sair a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header>Minhas Receitas</header>
+  <div class="container">
+    <div class="bem-vindo" id="bem-vindo">Olá, usuário!</div>
+
+    <ul class="receitas-lista" id="lista-receitas">
+      <!-- Receitas aparecerão aqui -->
+    </ul>
+
+    <button onclick="adicionarReceita()">+ Adicionar Nova Receita</button>
+
+    <div class="sair">
+      <a href="index.html" onclick="sair()">← Voltar para a página inicial</a>
+    </div>
+  </div>
+
+  <script>
+    const email = localStorage.getItem("usuarioLogado");
+
+    if (!email) {
+      window.location.href = "login.html";
+    }
+
+    const dados = JSON.parse(localStorage.getItem(email));
+    document.getElementById("bem-vindo").innerText = `Bem-vindo, ${email}!`;
+
+    const lista = document.getElementById("lista-receitas");
+
+    function carregarReceitas() {
+      lista.innerHTML = "";
+
+      if (dados.receitasSalvas.length === 0) {
+        lista.innerHTML = "<p>Você ainda não salvou nenhuma receita.</p>";
+        return;
+      }
+
+      dados.receitasSalvas.forEach((receita, index) => {
+        const item = document.createElement("li");
+        item.className = "receita-item";
+        item.innerText = receita;
+        lista.appendChild(item);
+      });
+    }
+
+    function adicionarReceita() {
+      const nova = prompt("Digite o nome da nova receita:");
+      if (nova) {
+        dados.receitasSalvas.push(nova);
+        localStorage.setItem(email, JSON.stringify(dados));
+        carregarReceitas();
+      }
+    }
+
+    function sair() {
+      localStorage.removeItem("usuarioLogado");
+    }
+
+    carregarReceitas();
+  </script>
+</body>
+</html>
