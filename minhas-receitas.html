@@ -161,3 +161,19 @@
     }
 
     function adicionarReceita() {
+      const nova = prompt("Digite o nome da nova receita:");
+      if (nova && nova.trim() !== "") {
+        usuarioAtual.receitasSalvas.push(nova.trim());
+        salvarUsuarios();
+        carregarReceitas();
+      }
+    }
+
+    function sair() {
+      localStorage.removeItem("usuarioLogado");
+    }
+
+    carregarReceitas();
+  </script>
+</body>
+</html>
