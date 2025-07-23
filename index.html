@@ -89,8 +89,8 @@
         </div>
     </section>
     <script>
-        const boasVindas = document.getElementById("boasVindas");
-        const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
+        const boasvindas = document.getElementById("boasVindas");
+        const usuariologado = JSON.parse(localStorage.getItem("usuarioLogado"));
 
         if (usuarioLogado && usuarioLogado.nome) {
             boasVindas.textContent = `👋 Olá, ${usuarioLogado.nome}!`;
