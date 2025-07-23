@@ -17,32 +17,59 @@
     <div class="r2-receitas-lista" id="listaReceitas"></div>
   </div>
 
-
-
   <script>
     const boasVindas = document.getElementById("boasVindas");
     const logoutBtn = document.getElementById("logoutBtn");
     const listaReceitas = document.getElementById("listaReceitas");
     const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
 
-    if (usuarioLogado && usuarioLogado.nome) {
-      boasVindas.textContent = `Olá, ${usuarioLogado.nome}!`;
-
-      const receitasSalvas = JSON.parse(localStorage.getItem("receitasSalvas_" + usuarioLogado.email) || "[]");
-
-      if (receitasSalvas.length === 0) {
-        listaReceitas.innerHTML = "<p>Você ainda não salvou nenhuma receita.</p>";
-      } else {
-        receitasSalvas.forEach(receita => {
-          const div = document.createElement("div");
-          div.className = "r2-receita-item";
-          div.innerHTML = `<a href="${receita.url}">${receita.nome}</a>`;
-          listaReceitas.appendChild(div);
-        });
-      }
-    } else {
+    if (!usuarioLogado || !usuarioLogado.nome) {
       // Se não estiver logado, redireciona para login
       window.location.href = "login.html";
+    } else {
+      boasVindas.textContent = `Olá, ${usuarioLogado.nome}!`;
+
+      // Função para mostrar as receitas salvas
+      function mostrarReceitas() {
+        listaReceitas.innerHTML = "";
+
+        const receitasSalvas = JSON.parse(localStorage.getItem("receitasSalvas_" + usuarioLogado.email) || "[]");
+
+        if (receitasSalvas.length === 0) {
+          listaReceitas.innerHTML = "<p>Você ainda não salvou nenhuma receita.</p>";
+          return;
+        }
+
+        receitasSalvas.forEach((receita, index) => {
+          const div = document.createElement("div");
+          div.className = "r2-receita-item";
+
+          div.innerHTML = `
+            <a href="${receita.url}">${receita.nome}</a>
+            <button class="r2-btn-excluir" data-index="${index}">Excluir</button>
+          `;
+
+          listaReceitas.appendChild(div);
+        });
+
+        // Adicionar eventos aos botões excluir
+        document.querySelectorAll(".r2-btn-excluir").forEach(botao => {
+          botao.addEventListener("click", function() {
+            const idx = parseInt(this.getAttribute("data-index"));
+            excluirReceita(idx);
+          });
+        });
+      }
+
+      // Função para excluir receita salva
+      function excluirReceita(index) {
+        let receitasSalvas = JSON.parse(localStorage.getItem("receitasSalvas_" + usuarioLogado.email) || "[]");
+        receitasSalvas.splice(index, 1);
+        localStorage.setItem("receitasSalvas_" + usuarioLogado.email, JSON.stringify(receitasSalvas));
+        mostrarReceitas();
+      }
+
+      mostrarReceitas();
     }
 
     logoutBtn.addEventListener("click", () => {
@@ -52,4 +79,3 @@
   </script>
 </body>
 </html>
-
