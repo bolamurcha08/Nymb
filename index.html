@@ -23,6 +23,8 @@
             </ul>
         </nav>
         <div id="boasVindas" class="boas-vindas"></div>
+        <button id="logoutBtn" class="logout-btn">Sair</button>
+
     </header>
     <section id="conheca-nos">
         <h2>Conheça-nos</h2>
@@ -94,6 +96,24 @@
             boasVindas.textContent = `👋 Olá, ${usuarioLogado.nome}!`;
         }
     </script>
+    <script>
+  const boasVindas = document.getElementById("boasVindas");
+  const logoutBtn = document.getElementById("logoutBtn");
+  const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
+
+  if (usuarioLogado && usuarioLogado.nome) {
+    boasVindas.textContent = `👋 Olá, ${usuarioLogado.nome}!`;
+  } else {
+    // Se não estiver logado, redireciona para o login
+    window.location.href = "login.html";
+  }
+
+  logoutBtn.addEventListener("click", () => {
+    localStorage.removeItem("usuarioLogado");
+    window.location.href = "login.html";
+  });
+</script>
+
 
 
 

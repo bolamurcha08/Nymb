@@ -251,6 +251,27 @@ footer a {
   color: #5C3A1E;
 }
 
+.boas-vindas {
+  font-size: 1.2em;
+  margin: 1rem;
+  color: #d2691e; /* cor docinha 😊 */
+  font-weight: bold;
+}
+
+.logout-btn {
+  background-color: #ff6347;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 1rem;
+}
+
+.logout-btn:hover {
+  background-color: #e5533d;
+}
 
 
 
