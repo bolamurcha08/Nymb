@@ -91,31 +91,22 @@
             </div>
         </div>
     </section>
-    <script>
-        const boasvindas = document.getElementById("boasVindas");
-        const usuariologado = JSON.parse(localStorage.getItem("usuarioLogado"));
+  <script>
+  const boasVindas = document.getElementById("boasVindas");
+  const logoutBtn = document.getElementById("logoutBtn");
+  const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
 
-        if (usuarioLogado && usuarioLogado.nome) {
-            boasVindas.textContent = ` Olá, ${usuarioLogado.nome}!`;
-        }
-    </script>
-    <script>
-        const boasVindas = document.getElementById("boasVindas");
-        const logoutBtn = document.getElementById("logoutBtn");
-        const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
+  if (usuarioLogado && usuarioLogado.nome) {
+    boasVindas.textContent = `Olá, ${usuarioLogado.nome}!`;
+  } else {
+    window.location.href = "index.html";
+  }
 
-        if (usuarioLogado && usuarioLogado.nome) {
-            boasVindas.textContent = ` Olá, ${usuarioLogado.nome}!`;
-        } else {
-            // Se não estiver logado, redireciona para o login
-            window.location.href = "login.html";
-        }
-
-        logoutBtn.addEventListener("click", () => {
-            localStorage.removeItem("usuarioLogado");
-            window.location.href = "login.html";
-        });
-    </script>
+  logoutBtn.addEventListener("click", () => {
+    localStorage.removeItem("usuarioLogado");
+    window.location.href = "login.html";
+  });
+</script>
 
 
     <footer>
