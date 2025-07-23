@@ -22,6 +22,7 @@
                 <li><a href="login.html">Login</a></li>
             </ul>
         </nav>
+        <div id="boasVindas" class="boas-vindas"></div>
     </header>
     <section id="conheca-nos">
         <h2>Conheça-nos</h2>
@@ -38,7 +39,7 @@
                 Docinhos NYMB tem.
 
             </p>
-    
+
         </div>
     </section>
 
@@ -85,6 +86,14 @@
             </div>
         </div>
     </section>
+    <script>
+        const boasVindas = document.getElementById("boasVindas");
+        const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
+
+        if (usuarioLogado && usuarioLogado.nome) {
+            boasVindas.textContent = `👋 Olá, ${usuarioLogado.nome}!`;
+        }
+    </script>
 
 
 
