@@ -1,0 +1,57 @@
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Torta de Morango - Docinhos NYMB</title>
+  <link rel="stylesheet" href="style.css">
+  
+</head>
+<body>
+  <div class="r1-container">
+    <a href="index.html" class="r1-voltar">&larr; Voltar para o menu</a>
+    <h1>Torta de Morango</h1>
+
+    <h2>Ingredientes</h2>
+    <ul>
+      <li>1 pacote de biscoito maisena</li>
+      <li>3 colheres (sopa) de manteiga</li>
+      <li>1 lata de leite condensado</li>
+      <li>1 lata de creme de leite</li>
+      <li>1 envelope de gelatina sem sabor</li>
+      <li>1 caixa de morangos frescos</li>
+    </ul>
+
+    <h2>Modo de preparo</h2>
+    <ul>
+      <li>Triture os biscoitos e misture com a manteiga até formar uma farofa úmida.</li>
+      <li>Forre o fundo de uma forma com essa massa e reserve.</li>
+      <li>Bata o leite condensado com o creme de leite e a gelatina preparada conforme instruções.</li>
+      <li>Despeje sobre a base e leve à geladeira por 4 horas.</li>
+      <li>Decore com morangos fatiados por cima antes de servir.</li>
+    </ul>
+
+    <button class="r1-btn-salvar" onclick="salvarReceita('Torta de Morango')">Salvar Receita</button>
+    <br><br>
+    <a href="index.html" class="r1-voltar">&larr; Voltar para o menu</a>
+  </div>
+
+  <script>
+    function salvarReceita(nome) {
+      const usuario = JSON.parse(localStorage.getItem("usuarioLogado"));
+      if (!usuario) {
+        alert("Faça login para salvar receitas.");
+        return;
+      }
+
+      usuario.receitasSalvas = usuario.receitasSalvas || [];
+      if (!usuario.receitasSalvas.includes(nome)) {
+        usuario.receitasSalvas.push(nome);
+        localStorage.setItem("usuarioLogado", JSON.stringify(usuario));
+        alert("Receita salva com sucesso!");
+      } else {
+        alert("Você já salvou essa receita.");
+      }
+    }
+  </script>
+</body>
+</html>
