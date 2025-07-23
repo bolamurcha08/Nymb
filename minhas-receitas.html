@@ -1,55 +1,59 @@
 <!DOCTYPE html>
 <html lang="pt">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Minhas Receitas - Docinhos NYMB</title>
-  <link rel="stylesheet" href="style.css" />
- 
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Minhas Receitas - Docinhos NYMB</title>
+    <link rel="stylesheet" href="style.css" />
+
 </head>
+
 <body>
-  <a href="index.html" class="r1-voltar">← Voltar para o menu</a>
 
-  <div class="r1-container">
-    <h1>Minhas Receitas Salvas</h1>
-    <ul id="lista-receitas" class="r1-lista"></ul>
-    <p id="msg" class="r1-msg"></p>
-  </div>
+    <a href="index.html" class="r2-voltar">← Voltar ao menu</a>
 
-  <script>
-    const usuario = JSON.parse(localStorage.getItem("usuarioLogado"));
-    const lista = document.getElementById("lista-receitas");
-    const msg = document.getElementById("msg");
+    <div class="r2-container">
+        <h1 class="r2-titulo">Minhas Receitas Salvas 🍬</h1>
+        <ul id="lista-receitas" class="r2-lista"></ul>
+        <p id="msg" class="r2-msg"></p>
+    </div>
 
-    if (!usuario) {
-      msg.textContent = "Você precisa estar logado para ver suas receitas.";
-    } else {
-      const receitas = JSON.parse(localStorage.getItem("receitasSalvas_" + usuario.email) || "[]");
+    <script>
+        const usuario = JSON.parse(localStorage.getItem("usuarioLogado"));
+        const lista = document.getElementById("lista-receitas");
+        const msg = document.getElementById("msg");
 
-      if (receitas.length === 0) {
-        msg.textContent = "Nenhuma receita salva ainda.";
-      } else {
-        receitas.forEach((receita, index) => {
-          const li = document.createElement("li");
-          const link = document.createElement("a");
-          link.href = receita.url;
-          link.textContent = receita.nome;
+        if (!usuario) {
+            msg.textContent = "Você precisa estar logado para ver suas receitas.";
+        } else {
+            const receitas = JSON.parse(localStorage.getItem("receitasSalvas_" + usuario.email) || "[]");
 
-          const botao = document.createElement("button");
-          botao.textContent = "Remover";
-          botao.classList.add("r1-btn-remover");
-          botao.onclick = () => {
-            receitas.splice(index, 1);
-            localStorage.setItem("receitasSalvas_" + usuario.email, JSON.stringify(receitas));
-            location.reload();
-          };
+            if (receitas.length === 0) {
+                msg.textContent = "Nenhuma receita salva ainda.";
+            } else {
+                receitas.forEach((receita, index) => {
+                    const li = document.createElement("li");
+                    const link = document.createElement("a");
+                    link.href = receita.url;
+                    link.textContent = receita.nome;
 
-          li.appendChild(link);
-          li.appendChild(botao);
-          lista.appendChild(li);
-        });
-      }
-    }
-  </script>
+                    const botao = document.createElement("button");
+                    botao.textContent = "Remover";
+                    botao.classList.add("r2-botao-remover");
+                    botao.onclick = () => {
+                        receitas.splice(index, 1);
+                        localStorage.setItem("receitasSalvas_" + usuario.email, JSON.stringify(receitas));
+                        location.reload();
+                    };
+
+                    li.appendChild(link);
+                    li.appendChild(botao);
+                    lista.appendChild(li);
+                });
+            }
+        }
+    </script>
 </body>
+
 </html>
