@@ -19,18 +19,16 @@
         <li>1 lata de leite condensado</li>
         <li>1 colher (sopa) de manteiga</li>
         <li>100g de coco ralado</li>
-        <li>Açúcar cristal para decorar</li>
-        <li>Cravos-da-índia (opcional)</li>
+        <li>Cristal de açúcar para enrolar</li>
       </ul>
     </div>
 
     <div class="r1-section">
       <h2>Modo de preparo</h2>
       <ol>
-        <li>Em uma panela, misture o leite condensado, a manteiga e o coco ralado.</li>
-        <li>Leve ao fogo baixo, mexendo até desgrudar do fundo.</li>
-        <li>Deixe esfriar, enrole os beijinhos e passe no açúcar cristal.</li>
-        <li>Decore com cravos, se desejar.</li>
+        <li>Coloque o leite condensado, manteiga e o coco na panela.</li>
+        <li>Cozinhe em fogo baixo até desgrudar do fundo.</li>
+        <li>Deixe esfriar, enrole as bolinhas e passe no açúcar cristal.</li>
       </ol>
     </div>
 
@@ -41,8 +39,11 @@
   <script>
     function salvarReceita() {
       const usuario = JSON.parse(localStorage.getItem("usuarioLogado"));
+      const msg = document.getElementById("r1-msg");
+
       if (!usuario) {
-        document.getElementById("r1-msg").textContent = "Você precisa estar logado!";
+        msg.textContent = "Você precisa estar logado para salvar receitas!";
+        msg.style.color = "red";
         return;
       }
 
@@ -53,19 +54,18 @@
       };
 
       const jaSalva = receitas.some(r => r.url === receita.url);
-      if (!jaSalva) {
-        receitas.push(receita);
-        localStorage.setItem("receitasSalvas_" + usuario.email, JSON.stringify(receitas));
-        document.getElementById("r1-msg").textContent = "Receita salva!";
-      } else {
-        document.getElementById("r1-msg").textContent = "Essa receita já está salva.";
+      if (jaSalva) {
+        msg.textContent = "Essa receita já está salva.";
+        msg.style.color = "orange";
+        return;
       }
+
+      receitas.push(receita);
+      localStorage.setItem("receitasSalvas_" + usuario.email, JSON.stringify(receitas));
+
+      msg.textContent = "Receita salva com sucesso!";
+      msg.style.color = "green";
     }
   </script>
-  <footer>
-        <p>Siga a gente nas redes sociais:</p>
-        <a href="https://instagram.com" target="_blank">Instagram</a>
-        <p>&copy; 2025 Docinhos NYMB.</p>
-    </footer>
 </body>
 </html>

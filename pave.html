@@ -16,24 +16,20 @@
     <div class="r1-section">
       <h2>Ingredientes</h2>
       <ul>
-        <li>1 pacote de biscoito maisena</li>
+        <li>1 pacote de biscoito champagne</li>
         <li>1 lata de leite condensado</li>
-        <li>1 lata de creme de leite</li>
-        <li>2 colheres de sopa de amido de milho</li>
-        <li>2 xícaras de leite</li>
-        <li>1 gema</li>
-        <li>1 barra de chocolate meio amargo</li>
-        <li>Leite para umedecer os biscoitos</li>
+        <li>2 caixinhas de creme de leite</li>
+        <li>1 envelope de gelatina incolor</li>
+        <li>Frutas para decorar</li>
       </ul>
     </div>
 
     <div class="r1-section">
       <h2>Modo de preparo</h2>
       <ol>
-        <li>Faça um creme com leite, leite condensado, gema e amido; leve ao fogo até engrossar.</li>
-        <li>Em um refratário, alterne camadas de biscoito umedecido e creme.</li>
-        <li>Derreta o chocolate com creme de leite e cubra o pavê.</li>
-        <li>Leve à geladeira por pelo menos 4 horas antes de servir.</li>
+        <li>Molhe os biscoitos no leite e faça camadas em um refratário.</li>
+        <li>Bata o leite condensado, creme de leite e gelatina e coloque sobre os biscoitos.</li>
+        <li>Leve à geladeira por algumas horas e decore com frutas.</li>
       </ol>
     </div>
 
@@ -44,8 +40,11 @@
   <script>
     function salvarReceita() {
       const usuario = JSON.parse(localStorage.getItem("usuarioLogado"));
+      const msg = document.getElementById("r1-msg");
+
       if (!usuario) {
-        document.getElementById("r1-msg").textContent = "Você precisa estar logado!";
+        msg.textContent = "Você precisa estar logado para salvar receitas!";
+        msg.style.color = "red";
         return;
       }
 
@@ -56,19 +55,18 @@
       };
 
       const jaSalva = receitas.some(r => r.url === receita.url);
-      if (!jaSalva) {
-        receitas.push(receita);
-        localStorage.setItem("receitasSalvas_" + usuario.email, JSON.stringify(receitas));
-        document.getElementById("r1-msg").textContent = "Receita salva!";
-      } else {
-        document.getElementById("r1-msg").textContent = "Essa receita já está salva.";
+      if (jaSalva) {
+        msg.textContent = "Essa receita já está salva.";
+        msg.style.color = "orange";
+        return;
       }
+
+      receitas.push(receita);
+      localStorage.setItem("receitasSalvas_" + usuario.email, JSON.stringify(receitas));
+
+      msg.textContent = "Receita salva com sucesso!";
+      msg.style.color = "green";
     }
   </script>
-  <footer>
-        <p>Siga a gente nas redes sociais:</p>
-        <a href="https://instagram.com" target="_blank">Instagram</a>
-        <p>&copy; 2025 Docinhos NYMB.</p>
-    </footer>
 </body>
 </html>

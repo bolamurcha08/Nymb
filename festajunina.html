@@ -3,37 +3,35 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Doces de Festa Junina - Docinhos NYMB</title>
+  <title>Doces para Festa Junina - Docinhos NYMB</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <a href="index.html" class="r1-voltar">← Voltar para o menu</a>
 
   <div class="r1-container">
-    <img src="docefesta.png" alt="Doces de Festa Junina" />
-    <h1>Doces de Festa Junina</h1>
+    <img src="docefesta.png" alt="Doces para Festa Junina" />
+    <h1>Doces para Festa Junina</h1>
 
     <div class="r1-section">
       <h2>Ingredientes</h2>
       <ul>
         <li>1 lata de leite condensado</li>
-        <li>2 xícaras de amendoim torrado e moído (para paçoca caseira)</li>
-        <li>1 xícara de milho para canjica</li>
-        <li>1 litro de leite</li>
-        <li>3 colheres (sopa) de açúcar</li>
-        <li>1 pau de canela</li>
-        <li>Cravo-da-índia a gosto</li>
-        <li>Coco ralado (opcional)</li>
+        <li>1 colher de manteiga</li>
+        <li>1 pacote de amendoim torrado e triturado</li>
+        <li>1 xícara de coco ralado</li>
+        <li>Chocolate granulado para decorar</li>
       </ul>
     </div>
 
     <div class="r1-section">
       <h2>Modo de preparo</h2>
       <ol>
-        <li>Para a canjica: deixe o milho de molho por 12h. Cozinhe até ficar macio.</li>
-        <li>Adicione leite, açúcar, leite condensado, canela e cravo. Cozinhe mais 20 minutos.</li>
-        <li>Para a paçoca caseira: misture o amendoim moído com leite condensado até formar uma massa modelável.</li>
-        <li>Modele em quadradinhos e sirva.</li>
+        <li>Em uma panela, misture o leite condensado e a manteiga.</li>
+        <li>Cozinhe em fogo baixo até engrossar.</li>
+        <li>Acrescente o amendoim e o coco, mexa bem.</li>
+        <li>Despeje em um refratário untado e deixe esfriar.</li>
+        <li>Corte em pedaços e decore com granulado.</li>
       </ol>
     </div>
 
@@ -44,31 +42,33 @@
   <script>
     function salvarReceita() {
       const usuario = JSON.parse(localStorage.getItem("usuarioLogado"));
+      const msg = document.getElementById("r1-msg");
+
       if (!usuario) {
-        document.getElementById("r1-msg").textContent = "Você precisa estar logado!";
+        msg.textContent = "Você precisa estar logado para salvar receitas!";
+        msg.style.color = "red";
         return;
       }
 
       const receitas = JSON.parse(localStorage.getItem("receitasSalvas_" + usuario.email) || "[]");
       const receita = {
-        nome: "Doces de Festa Junina",
-        url: "festa-junina.html"
+        nome: "Doces para Festa Junina",
+        url: "doce-festa-junina.html"
       };
 
       const jaSalva = receitas.some(r => r.url === receita.url);
-      if (!jaSalva) {
-        receitas.push(receita);
-        localStorage.setItem("receitasSalvas_" + usuario.email, JSON.stringify(receitas));
-        document.getElementById("r1-msg").textContent = "Receita salva!";
-      } else {
-        document.getElementById("r1-msg").textContent = "Essa receita já está salva.";
+      if (jaSalva) {
+        msg.textContent = "Essa receita já está salva.";
+        msg.style.color = "orange";
+        return;
       }
+
+      receitas.push(receita);
+      localStorage.setItem("receitasSalvas_" + usuario.email, JSON.stringify(receitas));
+
+      msg.textContent = "Receita salva com sucesso!";
+      msg.style.color = "green";
     }
   </script>
-  <footer>
-        <p>Siga a gente nas redes sociais:</p>
-        <a href="https://instagram.com" target="_blank">Instagram</a>
-        <p>&copy; 2025 Docinhos NYMB.</p>
-    </footer>
 </body>
 </html>

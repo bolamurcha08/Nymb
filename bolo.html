@@ -19,21 +19,20 @@
         <li>3 ovos</li>
         <li>2 xícaras de açúcar</li>
         <li>2 xícaras de farinha de trigo</li>
-        <li>1 xícara de chocolate em pó</li>
+        <li>1 xícara de cacau em pó</li>
         <li>1 xícara de leite</li>
         <li>1/2 xícara de óleo</li>
-        <li>1 colher (sopa) de fermento em pó</li>
+        <li>1 colher de sopa de fermento em pó</li>
       </ul>
     </div>
 
     <div class="r1-section">
       <h2>Modo de preparo</h2>
       <ol>
-        <li>Preaqueça o forno a 180°C e unte uma forma com manteiga e farinha.</li>
-        <li>Bata os ovos e o açúcar até formar um creme claro.</li>
-        <li>Adicione o óleo e o leite, misturando bem.</li>
-        <li>Peneire a farinha, o chocolate em pó e o fermento e incorpore aos poucos à mistura líquida.</li>
-        <li>Despeje na forma e asse por cerca de 35-40 minutos, ou até o teste do palito sair limpo.</li>
+        <li>Bata os ovos com açúcar até dobrar de volume.</li>
+        <li>Acrescente a farinha, o cacau, o leite e o óleo, misturando bem.</li>
+        <li>Por último, adicione o fermento e misture delicadamente.</li>
+        <li>Despeje em forma untada e asse em forno médio por 35 minutos.</li>
       </ol>
     </div>
 
@@ -44,8 +43,11 @@
   <script>
     function salvarReceita() {
       const usuario = JSON.parse(localStorage.getItem("usuarioLogado"));
+      const msg = document.getElementById("r1-msg");
+
       if (!usuario) {
-        document.getElementById("r1-msg").textContent = "Você precisa estar logado!";
+        msg.textContent = "Você precisa estar logado para salvar receitas!";
+        msg.style.color = "red";
         return;
       }
 
@@ -56,19 +58,18 @@
       };
 
       const jaSalva = receitas.some(r => r.url === receita.url);
-      if (!jaSalva) {
-        receitas.push(receita);
-        localStorage.setItem("receitasSalvas_" + usuario.email, JSON.stringify(receitas));
-        document.getElementById("r1-msg").textContent = "Receita salva!";
-      } else {
-        document.getElementById("r1-msg").textContent = "Essa receita já está salva.";
+      if (jaSalva) {
+        msg.textContent = "Essa receita já está salva.";
+        msg.style.color = "orange";
+        return;
       }
+
+      receitas.push(receita);
+      localStorage.setItem("receitasSalvas_" + usuario.email, JSON.stringify(receitas));
+
+      msg.textContent = "Receita salva com sucesso!";
+      msg.style.color = "green";
     }
   </script>
-  <footer>
-        <p>Siga a gente nas redes sociais:</p>
-        <a href="https://instagram.com" target="_blank">Instagram</a>
-        <p>&copy; 2025 Docinhos NYMB.</p>
-    </footer>
 </body>
 </html>

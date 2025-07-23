@@ -5,10 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Brigadeiro - Docinhos NYMB</title>
   <link rel="stylesheet" href="style.css" />
-
 </head>
 <body>
-    <a href="index.html" class="r1-voltar">← Voltar para o menu</a>
+  <a href="index.html" class="r1-voltar">← Voltar para o menu</a>
 
   <div class="r1-container">
     <img src="1brigadeiro.png" alt="Brigadeiro" />
@@ -40,8 +39,11 @@
   <script>
     function salvarReceita() {
       const usuario = JSON.parse(localStorage.getItem("usuarioLogado"));
+      const msg = document.getElementById("r1-msg");
+
       if (!usuario) {
-        document.getElementById("r1-msg").textContent = "Você precisa estar logado!";
+        msg.textContent = "Você precisa estar logado para salvar receitas!";
+        msg.style.color = "red";
         return;
       }
 
@@ -52,19 +54,19 @@
       };
 
       const jaSalva = receitas.some(r => r.url === receita.url);
-      if (!jaSalva) {
-        receitas.push(receita);
-        localStorage.setItem("receitasSalvas_" + usuario.email, JSON.stringify(receitas));
-        document.getElementById("r1-msg").textContent = "Receita salva!";
-      } else {
-        document.getElementById("r1-msg").textContent = "Essa receita já está salva.";
+      if (jaSalva) {
+        msg.textContent = "Essa receita já está salva.";
+        msg.style.color = "orange";
+        return;
       }
+
+      receitas.push(receita);
+      localStorage.setItem("receitasSalvas_" + usuario.email, JSON.stringify(receitas));
+
+      msg.textContent = "Receita salva com sucesso!";
+      msg.style.color = "green";
     }
   </script>
-  <footer>
-        <p>Siga a gente nas redes sociais:</p>
-        <a href="https://instagram.com" target="_blank">Instagram</a>
-        <p>&copy; 2025 Docinhos NYMB.</p>
-    </footer>
 </body>
 </html>
+
