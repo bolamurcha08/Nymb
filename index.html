@@ -96,7 +96,7 @@
         const usuariologado = JSON.parse(localStorage.getItem("usuarioLogado"));
 
         if (usuarioLogado && usuarioLogado.nome) {
-            boasVindas.textContent = `👋 Olá, ${usuarioLogado.nome}!`;
+            boasVindas.textContent = ` Olá, ${usuarioLogado.nome}!`;
         }
     </script>
     <script>
@@ -105,7 +105,7 @@
         const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
 
         if (usuarioLogado && usuarioLogado.nome) {
-            boasVindas.textContent = `👋 Olá, ${usuarioLogado.nome}!`;
+            boasVindas.textContent = ` Olá, ${usuarioLogado.nome}!`;
         } else {
             // Se não estiver logado, redireciona para o login
             window.location.href = "login.html";
