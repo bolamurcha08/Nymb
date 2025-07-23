@@ -6,15 +6,14 @@
   <title>Torta de Morango - Docinhos NYMB</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-<body class="r1-body">
+<body>
+  <a href="index.html" class="r1-voltar">← Voltar para o menu</a>
+
   <div class="r1-container">
-    <h1 class="r1-titulo">Torta de Morango</h1>
+    <img src="2tortademorango.jpg" alt="Torta de Morango" />
+    <h1>Torta de Morango</h1>
 
-    <div class="r1-img">
-   <img src="2tortademorango.jpg" alt="tortademorango">
-    </div>
-
-    <div class="r1-secao">
+    <div class="r1-section">
       <h2>Ingredientes</h2>
       <ul>
         <li>1 pacote de biscoito maisena</li>
@@ -28,8 +27,8 @@
       </ul>
     </div>
 
-    <div class="r1-secao">
-      <h2>Modo de Preparo</h2>
+    <div class="r1-section">
+      <h2>Modo de preparo</h2>
       <ol>
         <li>Triture o biscoito e misture com a manteiga até formar uma massa.</li>
         <li>Forre uma forma e leve ao forno por 10 minutos.</li>
@@ -40,37 +39,32 @@
       </ol>
     </div>
 
-    <button class="r1-salvar-btn" onclick="salvarReceita()">💾 Salvar Receita</button>
-
-    <p id="r1-mensagem-salvar" style="margin-top: 10px;"></p>
-
-    <a href="index.html" class="r1-voltar">← Voltar ao Menu Principal</a>
+    <button class="r1-btn-salvar" onclick="salvarReceita()">Salvar Receita</button>
+    <p class="r1-msg" id="r1-msg"></p>
   </div>
 
   <script>
     function salvarReceita() {
-      const receita = {
-        titulo: "Torta de Morango",
-        pagina: "torta-de-morango.html"
-      };
-
-      let salvas = JSON.parse(localStorage.getItem("receitasSalvas") || "[]");
-
-      const jaSalva = salvas.find(r => r.pagina === receita.pagina);
-
-      const mensagem = document.getElementById("r1-mensagem-salvar");
-
-      if (jaSalva) {
-        mensagem.textContent = "🍓 Receita já está salva!";
-        mensagem.style.color = "orange";
+      const usuario = JSON.parse(localStorage.getItem("usuarioLogado"));
+      if (!usuario) {
+        document.getElementById("r1-msg").textContent = "Você precisa estar logado!";
         return;
       }
 
-      salvas.push(receita);
-      localStorage.setItem("receitasSalvas", JSON.stringify(salvas));
+      const receitas = JSON.parse(localStorage.getItem("receitasSalvas_" + usuario.email) || "[]");
+      const receita = {
+        nome: "Torta de Morango",
+        url: "torta-de-morango.html"
+      };
 
-      mensagem.textContent = "✅ Receita salva com sucesso!";
-      mensagem.style.color = "green";
+      const jaSalva = receitas.some(r => r.url === receita.url);
+      if (!jaSalva) {
+        receitas.push(receita);
+        localStorage.setItem("receitasSalvas_" + usuario.email, JSON.stringify(receitas));
+        document.getElementById("r1-msg").textContent = "Receita salva!";
+      } else {
+        document.getElementById("r1-msg").textContent = "Essa receita já está salva.";
+      }
     }
   </script>
 </body>
