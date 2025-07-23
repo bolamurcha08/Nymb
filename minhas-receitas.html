@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Minhas Receitas</title>
+  <title>Minhas Receitas - Docinhos NYMB</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Dancing+Script&display=swap" rel="stylesheet"/>
   <style>
     body {
@@ -12,7 +12,6 @@
       background-color: #FAEEE0;
       color: #5C3A1E;
     }
-
     header {
       background-color: #E1A380;
       padding: 20px;
@@ -21,7 +20,6 @@
       font-size: 24px;
       font-family: 'Dancing Script', cursive;
     }
-
     .container {
       max-width: 800px;
       margin: 30px auto;
@@ -30,26 +28,38 @@
       border-radius: 15px;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     }
-
     .bem-vindo {
       font-size: 18px;
       margin-bottom: 20px;
     }
-
     .receitas-lista {
       list-style: none;
       padding: 0;
     }
-
     .receita-item {
       background-color: #FDF8F2;
       border: 1px solid #D3C0A6;
       padding: 15px;
       margin-bottom: 10px;
       border-radius: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
-
-    button {
+    .receita-item button {
+      background-color: #E1A380;
+      color: #fff;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background-color 0.3s ease;
+    }
+    .receita-item button:hover {
+      background-color: #5C3A1E;
+    }
+    button.adicionar {
       background-color: #E1A380;
       color: #fff;
       border: none;
@@ -58,24 +68,23 @@
       cursor: pointer;
       font-size: 16px;
       margin-top: 20px;
+      width: 100%;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
     }
-
-    button:hover {
+    button.adicionar:hover {
       background-color: #5C3A1E;
     }
-
     .sair {
       display: block;
       margin-top: 30px;
       text-align: center;
       font-size: 14px;
     }
-
     .sair a {
       color: #A0522D;
       text-decoration: none;
     }
-
     .sair a:hover {
       text-decoration: underline;
     }
@@ -90,7 +99,7 @@
       <!-- Receitas aparecerão aqui -->
     </ul>
 
-    <button onclick="adicionarReceita()">+ Adicionar Nova Receita</button>
+    <button class="adicionar" onclick="adicionarReceita()">+ Adicionar Nova Receita</button>
 
     <div class="sair">
       <a href="index.html" onclick="sair()">← Voltar para a página inicial</a>
@@ -98,47 +107,57 @@
   </div>
 
   <script>
-    const email = localStorage.getItem("usuarioLogado");
+    // Pega o usuário logado
+    const email = JSON.parse(localStorage.getItem("usuarioLogado"))?.email;
 
     if (!email) {
+      alert("Você precisa estar logado para acessar essa página.");
       window.location.href = "login.html";
     }
 
-    const dados = JSON.parse(localStorage.getItem(email));
-    document.getElementById("bem-vindo").innerText = `Bem-vindo, ${email}!`;
+    let usuarios = JSON.parse(localStorage.getItem("usuarios") || "[]");
+    let usuarioAtual = usuarios.find(u => u.email === email);
 
+    const bemVindoEl = document.getElementById("bem-vindo");
     const lista = document.getElementById("lista-receitas");
+
+    if (usuarioAtual) {
+      bemVindoEl.textContent = `Bem-vindo, ${usuarioAtual.nome}!`;
+    }
+
+    function salvarUsuarios() {
+      localStorage.setItem("usuarios", JSON.stringify(usuarios));
+    }
 
     function carregarReceitas() {
       lista.innerHTML = "";
 
-      if (dados.receitasSalvas.length === 0) {
+      if (!usuarioAtual || !usuarioAtual.receitasSalvas || usuarioAtual.receitasSalvas.length === 0) {
         lista.innerHTML = "<p>Você ainda não salvou nenhuma receita.</p>";
         return;
       }
 
-      dados.receitasSalvas.forEach((receita, index) => {
+      usuarioAtual.receitasSalvas.forEach((receita, index) => {
         const item = document.createElement("li");
         item.className = "receita-item";
-        item.innerText = receita;
+
+        const span = document.createElement("span");
+        span.textContent = receita;
+
+        const btnExcluir = document.createElement("button");
+        btnExcluir.textContent = "Excluir";
+        btnExcluir.onclick = () => {
+          if (confirm(`Quer mesmo excluir a receita "${receita}"?`)) {
+            usuarioAtual.receitasSalvas.splice(index, 1);
+            salvarUsuarios();
+            carregarReceitas();
+          }
+        };
+
+        item.appendChild(span);
+        item.appendChild(btnExcluir);
         lista.appendChild(item);
       });
     }
 
     function adicionarReceita() {
-      const nova = prompt("Digite o nome da nova receita:");
-      if (nova) {
-        dados.receitasSalvas.push(nova);
-        localStorage.setItem(email, JSON.stringify(dados));
-        carregarReceitas();
-      }
-    }
-
-    function sair() {
-      localStorage.removeItem("usuarioLogado");
-    }
-
-    carregarReceitas();
-  </script>
-</body>
-</html>
