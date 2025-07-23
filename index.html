@@ -76,8 +76,8 @@
     if (usuarioLogado && usuarioLogado.nome) {
       boasVindas.textContent = `Olá, ${usuarioLogado.nome}!`;
     } else {
-      boasVindas.textContent = ""; // Nenhuma mensagem se não logado
-      logoutBtn.style.display = "none"; // Oculta botão sair
+      boasVindas.textContent = ""; 
+      logoutBtn.style.display = "none"; 
     }
 
     logoutBtn.addEventListener("click", () => {

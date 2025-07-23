@@ -24,12 +24,11 @@
     const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
 
     if (!usuarioLogado || !usuarioLogado.nome) {
-      // Se não estiver logado, redireciona para login
       window.location.href = "login.html";
     } else {
       boasVindas.textContent = `Olá, ${usuarioLogado.nome}!`;
 
-      // Função para mostrar as receitas salvas
+ 
       function mostrarReceitas() {
         listaReceitas.innerHTML = "";
 
@@ -52,7 +51,7 @@
           listaReceitas.appendChild(div);
         });
 
-        // Adicionar eventos aos botões excluir
+      
         document.querySelectorAll(".r2-btn-excluir").forEach(botao => {
           botao.addEventListener("click", function() {
             const idx = parseInt(this.getAttribute("data-index"));
@@ -61,7 +60,6 @@
         });
       }
 
-      // Função para excluir receita salva
       function excluirReceita(index) {
         let receitasSalvas = JSON.parse(localStorage.getItem("receitasSalvas_" + usuarioLogado.email) || "[]");
         receitasSalvas.splice(index, 1);
