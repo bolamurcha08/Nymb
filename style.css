@@ -332,6 +332,21 @@ footer a {
       font-weight: bold;
     }
   
+    .r1-voltar {
+  display: inline-block;
+  margin-bottom: 20px;
+  background-color: #f2d1b3;
+  color: #5c3a1e;
+  padding: 10px 15px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.r1-voltar:hover {
+  background-color: #e3b58f;
+}
+
 
 
 
