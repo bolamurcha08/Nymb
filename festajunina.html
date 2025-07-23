@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Doces de Festa Junina - Docinhos NYMB</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <a href="index.html" class="r1-voltar">← Voltar para o menu</a>
+
+  <div class="r1-container">
+    <img src="docefesta.png" alt="Doces de Festa Junina" />
+    <h1>Doces de Festa Junina</h1>
+
+    <div class="r1-section">
+      <h2>Ingredientes</h2>
+      <ul>
+        <li>1 lata de leite condensado</li>
+        <li>2 xícaras de amendoim torrado e moído (para paçoca caseira)</li>
+        <li>1 xícara de milho para canjica</li>
+        <li>1 litro de leite</li>
+        <li>3 colheres (sopa) de açúcar</li>
+        <li>1 pau de canela</li>
+        <li>Cravo-da-índia a gosto</li>
+        <li>Coco ralado (opcional)</li>
+      </ul>
+    </div>
+
+    <div class="r1-section">
+      <h2>Modo de preparo</h2>
+      <ol>
+        <li>Para a canjica: deixe o milho de molho por 12h. Cozinhe até ficar macio.</li>
+        <li>Adicione leite, açúcar, leite condensado, canela e cravo. Cozinhe mais 20 minutos.</li>
+        <li>Para a paçoca caseira: misture o amendoim moído com leite condensado até formar uma massa modelável.</li>
+        <li>Modele em quadradinhos e sirva.</li>
+      </ol>
+    </div>
+
+    <button class="r1-btn-salvar" onclick="salvarReceita()">Salvar Receita</button>
+    <p class="r1-msg" id="r1-msg"></p>
+  </div>
+
+  <script>
+    function salvarReceita() {
+      const usuario = JSON.parse(localStorage.getItem("usuarioLogado"));
+      if (!usuario) {
+        document.getElementById("r1-msg").textContent = "Você precisa estar logado!";
+        return;
+      }
+
+      const receitas = JSON.parse(localStorage.getItem("receitasSalvas_" + usuario.email) || "[]");
+      const receita = {
+        nome: "Doces de Festa Junina",
+        url: "festa-junina.html"
+      };
+
+      const jaSalva = receitas.some(r => r.url === receita.url);
+      if (!jaSalva) {
+        receitas.push(receita);
+        localStorage.setItem("receitasSalvas_" + usuario.email, JSON.stringify(receitas));
+        document.getElementById("r1-msg").textContent = "Receita salva!";
+      } else {
+        document.getElementById("r1-msg").textContent = "Essa receita já está salva.";
+      }
+    }
+  </script>
+</body>
+</html>
