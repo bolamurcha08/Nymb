@@ -1,59 +1,52 @@
 <!DOCTYPE html>
 <html lang="pt">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Minhas Receitas - Docinhos NYMB</title>
-    <link rel="stylesheet" href="style.css" />
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Minhas Receitas - Docinhos NYMB</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
+  <div class="r2-container">
+    <a href="index.html" class="r2-voltar">← Voltar para o menu</a>
+    <button id="logoutBtn" class="r2-logout">Sair</button>
 
-    <a href="index.html" class="r2-voltar">← Voltar ao menu</a>
+    <div class="r2-boas-vindas" id="boasVindas">Olá!</div>
+    <h1>Minhas Receitas Salvas</h1>
 
-    <div class="r2-container">
-        <h1 class="r2-titulo">Minhas Receitas Salvas 🍬</h1>
-        <ul id="lista-receitas" class="r2-lista"></ul>
-        <p id="msg" class="r2-msg"></p>
-    </div>
+    <div class="r2-receitas-lista" id="listaReceitas"></div>
+  </div>
 
-    <script>
-        const usuario = JSON.parse(localStorage.getItem("usuarioLogado"));
-        const lista = document.getElementById("lista-receitas");
-        const msg = document.getElementById("msg");
+  <script>
+    const boasVindas = document.getElementById("boasVindas");
+    const logoutBtn = document.getElementById("logoutBtn");
+    const listaReceitas = document.getElementById("listaReceitas");
+    const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
 
-        if (!usuario) {
-            msg.textContent = "Você precisa estar logado para ver suas receitas.";
-        } else {
-            const receitas = JSON.parse(localStorage.getItem("receitasSalvas_" + usuario.email) || "[]");
+    if (usuarioLogado && usuarioLogado.nome) {
+      boasVindas.textContent = `Olá, ${usuarioLogado.nome}!`;
 
-            if (receitas.length === 0) {
-                msg.textContent = "Nenhuma receita salva ainda.";
-            } else {
-                receitas.forEach((receita, index) => {
-                    const li = document.createElement("li");
-                    const link = document.createElement("a");
-                    link.href = receita.url;
-                    link.textContent = receita.nome;
+      const receitasSalvas = JSON.parse(localStorage.getItem("receitasSalvas_" + usuarioLogado.email) || "[]");
 
-                    const botao = document.createElement("button");
-                    botao.textContent = "Remover";
-                    botao.classList.add("r2-botao-remover");
-                    botao.onclick = () => {
-                        receitas.splice(index, 1);
-                        localStorage.setItem("receitasSalvas_" + usuario.email, JSON.stringify(receitas));
-                        location.reload();
-                    };
+      if (receitasSalvas.length === 0) {
+        listaReceitas.innerHTML = "<p>Você ainda não salvou nenhuma receita.</p>";
+      } else {
+        receitasSalvas.forEach(receita => {
+          const div = document.createElement("div");
+          div.className = "r2-receita-item";
+          div.innerHTML = `<a href="${receita.url}">${receita.nome}</a>`;
+          listaReceitas.appendChild(div);
+        });
+      }
+    } else {
+      // Redireciona para o menu se não estiver logado
+      window.location.href = "index.html";
+    }
 
-                    li.appendChild(link);
-                    li.appendChild(botao);
-                    lista.appendChild(li);
-                });
-            }
-        }
-    </script>
+    logoutBtn.addEventListener("click", () => {
+      localStorage.removeItem("usuarioLogado");
+      window.location.href = "login.html";
+    });
+  </script>
 </body>
-
 </html>
